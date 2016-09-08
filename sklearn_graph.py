@@ -18,16 +18,16 @@ import matplotlib.pyplot as plt
 INPATH   = 'sklearncommits_mini.txt'
 OUTPATH  = 'sklearngraph.png'
 
-g = nx.Graph(name="Git Commits")
+g = nx.Graph(name="Sklearn Commits")
 
-ifile   = open(os.path.join('data', INPATH), 'r', newline='')
+ifile   = open(os.path.join('data', INPATH), 'r')
 commits  = csv.reader(ifile)
 next(commits)
 for commit in commits:
     commit_hash = commit[0]
-    commit_timestamp = commit[3]
     parent_hashes = commit[1]
     contributor = commit[2]
+    commit_timestamp = commit[3]
 
     g.add_node(commit_hash, timestamp=commit_timestamp)
     g.add_node(contributor)
@@ -37,9 +37,6 @@ for commit in commits:
         g.add_node(parent)
         g.add_edge(parent, commit_hash, label='parent')
 
-# nx.add_node(commit_hash, timestamp=commit_timestamp, foo='bar', color='red')
-
-# timestamp, foo, and color will all be key/value properties on the node
 
 print("Nodes of graph: ")
 print(g.nodes())
