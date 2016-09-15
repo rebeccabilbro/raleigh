@@ -66,10 +66,18 @@ def write_graphml(g, outpath):
     nx.write_graphml(g, outpath)
 
 
-if __name__ == '__main__':
-
-    with open(PICKLE, 'rb') as f:
+def convert_pickle(inpath=PICKLE, outpath=GRAPHML):
+    """
+    Converts the pickled graph to a graphml graph.
+    """
+    with open(inpath, 'rb') as f:
         g = pickle.load(f)
 
-    _, seconds = write_graphml(g, GRAPHML)
+    _, seconds = write_graphml(g, outpath)
     print("Wrote GraphML in {:0.2f} seconds".format(seconds))
+
+
+
+if __name__ == '__main__':
+    g = nx.read_graphml('data/tiny_keyphrases.graphml')
+    print(nx.info(g))
